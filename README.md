@@ -38,14 +38,33 @@ This project is built using pure HTML, CSS, and JavaScript without any external 
 - English (LTR)
 - Automatic text direction handling for both languages
 
+## Browser Support
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome for Android)
+
+## Performance
+- Lightweight (< 100KB)
+- No external dependencies
+- Fast processing even with large code blocks
+- Optimized for mobile devices
+
+## Installation
+No installation required! Simply visit the website and start using the tool.
+
 ## How to Use
 1. Paste your code into the input text area
 2. Choose your desired cleaning option using the buttons provided
 3. The cleaned code will appear in the output text area
 4. Use the copy button to copy the result to your clipboard
 
-## Developer
-Created and maintained by [@Davidtam561](https://github.com/Davidtam561)
+## Contributing
+Feel free to submit issues and enhancement requests!
+
+## License
+This project is free to use. You are welcome to modify and distribute it, just make sure to give credit to the original author [@Davidtam561](https://github.com/Davidtam561).
 
 ## Link
-[Visit ClearCode](https://davidtam561.github.io/ClearCode/) 
+[Visit ClearCode](https://davidtam561.github.io/ClearCode/)
