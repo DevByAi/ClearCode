@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>ClearCode</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f9;
+    }
+    .container {
+      max-width: 600px;
+      width: 90%;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+    p {
+      text-align: center;
+      font-size: 16px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .button-group button {
+      padding: 10px;
+      font-size: 16px;
+      color: #ffffff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button-group button:hover {
+      background-color: #0056b3;
+    }
+    [dir="rtl"] {
+        text-align: right;
+    }
+    [dir="ltr"] {
+        text-align: left;
+    }
+    .credits {
+        margin-top: 30px;
+        width: 100%;          
+        text-align: center;   
+        font-size: 14px;
+        color: #666;
+    }
+    .credits a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    .credits a:hover {
+        text-decoration: underline;
+    }
+    @media only screen and (max-width: 600px) and (hover: none) and (pointer: coarse) {
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 14px;
+      }
+      .button-group button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <h1>מסנן שורות ריקות והערות
+        <br>Empty Lines and Comments Filter</h1>
+    <p>הדבק כאן את הטקסט שלך, ונקה שורות ריקות והערות לפי בחירתך
+        <br>Paste your text here and clean empty lines and comments as you choose</p>
+    <textarea id="inputText" placeholder="הדבק כאן את הטקסט... - Paste your text here..."></textarea>
+    <textarea id="outputText" placeholder="התוצאה תופיע כאן... - Result will appear here..." readonly></textarea>
+    <div class="button-group">
+      <button onclick="processText('removeComments')">הסר רק הערות
+        <br>Remove Comments Only</button>
+      <button onclick="processText('removeEmptyLines')">הסר רק שורות ריקות
+        <br>Remove Empty Lines Only</button>
+      <button onclick="processText('removeAll')">הסר הכל
+        <br>Remove All</button>
+      <button onclick="clearText()">ניקוי תיבות
+        <br>Clear Boxes</button>
+      <button onclick="copyToClipboard()">העתק ללוח
+        <br>Copy to Clipboard</button>
+    </div>
+    <div class="credits">
+        Created by <a href="https://github.com/Davidtam561" target="_blank">@Davidtam561</a>
+    </div>
+</div>
+<script>
+    let lastInputText = ''; 
+    function clearText() {
+      document.getElementById('inputText').value = '';
+      document.getElementById('outputText').value = '';
+      lastInputText = ''; 
+    }
+    function processText(action) {
+      const inputText = document.getElementById('inputText').value;
+      lastInputText = inputText; 
+      document.getElementById('outputText').value = ''; 
+      setTimeout(() => { 
+        if (action === 'removeComments') {
+          removeComments();
+        } else if (action === 'removeEmptyLines') {
+          removeEmptyLines();
+        } else if (action === 'removeAll') {
+          removeAll();
+        }
+      }, 500); 
+    }
+    function removeComments() {
+      const lines = lastInputText.split('\n');
+      const filteredLines = lines.filter(line => !line.trim().startsWith('//') &&
+        !line.trim().startsWith('#') &&
+        !line.trim().startsWith('<!--') && !line.trim().endsWith('-->') &&
+        !line.trim().startsWith('/*') && !line.trim().endsWith('*/') &&
+        !line.trim().startsWith('--') &&
+        !line.trim().startsWith(';') &&
+        !line.trim().startsWith('%') &&
+        !line.trim().startsWith('REM')
+      );
+      document.getElementById('outputText').value = filteredLines.join('\n');
+    }
+    function removeEmptyLines() {
+      const lines = lastInputText.split('\n');
+      const filteredLines = lines.filter(line => line.trim() !== '');
+      document.getElementById('outputText').value = filteredLines.join('\n');
+    }
+    function removeAll() {
+      const lines = lastInputText.split('\n');
+      const filteredLines = lines.filter(line => {
+        const trimmedLine = line.trim();
+        return trimmedLine !== '' &&
+          !trimmedLine.startsWith('//') &&
+          !trimmedLine.startsWith('#') &&
+          !trimmedLine.startsWith('<!--') && !trimmedLine.endsWith('-->') &&
+          !trimmedLine.startsWith('/*') && !trimmedLine.endsWith('*/') &&
+          !trimmedLine.startsWith('--') &&
+          !trimmedLine.startsWith(';') &&
+          !trimmedLine.startsWith('%') &&
+          !trimmedLine.startsWith('REM');
+      });
+      document.getElementById('outputText').value = filteredLines.join('\n');
+    }
+    function copyToClipboard() {
+      const outputText = document.getElementById('outputText');
+      outputText.select();
+      document.execCommand('copy');
+    }
+</script>
+</body>
+</html>
