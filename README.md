@@ -48,4 +48,4 @@ This project is built using pure HTML, CSS, and JavaScript without any external 
 Created and maintained by [@Davidtam561](https://github.com/Davidtam561)
 
 ## Link
-[Visit ClearCode](link) 
+[Visit ClearCode](https://davidtam561.github.io/ClearCode/) 
