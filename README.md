@@ -12,6 +12,7 @@ ClearCode is a simple yet powerful web-based tool designed to clean and format c
 - Mobile-responsive design
 - Bilingual support (Hebrew and English)
 - Full RTL and LTR text support
+- History functionality to track previous code snippets
 
 ## Supported Comment Types
 The tool recognizes and can remove various types of comments across different programming languages:
@@ -32,6 +33,7 @@ This project is built using pure HTML, CSS, and JavaScript without any external 
 - **RTL/LTR Support**: Complete support for Right-to-Left and Left-to-Right text directions
 - **Async Processing**: Uses setTimeout for smooth user experience
 - **Clipboard Integration**: Native clipboard support for easy copying of results
+- **History Tracking**: Save and view previous code snippets for easy access
 
 ## Language Support
 - Hebrew (RTL)
@@ -59,6 +61,7 @@ No installation required! Simply visit the website and start using the tool.
 2. Choose your desired cleaning option using the buttons provided
 3. The cleaned code will appear in the output text area
 4. Use the copy button to copy the result to your clipboard
+5. Access the history feature to view and reuse previous code snippets
 
 ## Contributing
 Feel free to submit issues and enhancement requests!
