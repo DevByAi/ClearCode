@@ -14,17 +14,17 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      background-color: #f4f4f9;
+      background-color: #f0f0f0; /* צבע רקע נייטרלי */
       color: #333;
     }
 
     header {
-      background-color: #6200ea;
+      background-color: #4a4a4a; /* צבע כהה יותר */
       color: white;
       width: 100%;
-      padding: 10px 20px;
+      padding: 15px 20px;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     header h1 {
@@ -35,7 +35,7 @@
     main {
       padding: 20px;
       width: 100%;
-      max-width: 1200px;
+      max-width: 800px; /* הגבלת רוחב */
     }
 
     .text-area-container {
@@ -68,15 +68,13 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      background-color: #007bff; /* צבע אחיד */
+      color: white;
     }
 
     button:hover {
-      opacity: 0.9;
+      background-color: #0056b3; /* צבע כהה יותר בעת ריחוף */
     }
-
-    .btn-clear { background-color: #ff5252; color: white; }
-    .btn-process { background-color: #4caf50; color: white; }
-    .btn-copy { background-color: #2196f3; color: white; }
 
     aside {
       position: fixed;
@@ -94,12 +92,11 @@
 
     aside.open {
       display: block;
-      transform: translateX(0);
     }
 
     aside header {
       padding: 10px;
-      background-color: #6200ea;
+      background-color: #4a4a4a; /* צבע כהה יותר */
       color: white;
       text-align: center;
     }
@@ -118,36 +115,16 @@
     }
 
     .history-item:hover {
-      background-color: #f9f9f9;
-    }
-    .btn-history {
-    background-color: #ffc107; /* צבע רקע */
-    color: white; /* צבע טקסט */
-    border: none; /* ללא גבול */
-    border-radius: 4px; /* פינות מעוגלות */
-    padding: 10px; /* רווח פנימי */
-    font-size: 16px; /* גודל טקסט */
-    cursor: pointer; /* יד על העכבר */
-    transition: background-color 0.3s ease; /* אנימציה */
-}
-
-.btn-history:hover {
-    background-color: #e0a800; /* צבע רקע כאשר העכבר מעל */
-}
-
-    .show-more-button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      margin-top: 5px;
-      cursor: pointer;
-      font-size: 14px;
+      background-color: #f0f0f0; /* צבע רקע בעת ריחוף */
     }
 
-    .show-more-button:hover {
-      background-color: #0056b3;
+    .close-button {
+      background: none; /* ללא צבע רקע */
+      border: none; /* ללא גבול */
+      color: white; /* צבע טקסט */
+      font-size: 20px; /* גודל טקסט */
+      cursor: pointer; /* יד על העכבר */
+      float: right; /* מיקום הכפתור */
     }
   </style>
 </head>
@@ -170,116 +147,117 @@
       <button class="btn-copy" onclick="copyToClipboard()">העתק ללוח - Copy to Clipboard</button>
     </div>
   </main>
-  <aside id="historySidebar"></aside>
+  <aside id="historySidebar">
     <header>
-        <h2>היסטוריה - History</h2>
-        <button Cal ss="close-button" onclick="toggleHistory()" style="float: right;">✖</button> <!-- כפתור סגירה -->
+      <h2>היסטוריה - History</h2>
+      <button class="close-button" onclick="toggleHistory()">✖</button> <!-- כפתור סגירה -->
     </header>
     <ul id="historyList" class="history-list"></ul>
-</aside>
+  </aside>
   <script>
     function clearText() {
-    document.getElementById("inputText").value = "";
-    document.getElementById("outputText").value = "";
-  }
-
-  function processText(option) {
-    const input = document.getElementById("inputText").value;
-    let result;
-
-    if (option === "spaces") {
-      result = input.split("\n").filter(line => line.trim() !== "").join("\n");
-    } else if (option === "comments") {
-      result = input.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
-    } else {
-      result = input
-        .split("\n")
-        .filter(line => line.trim() !== "" && !line.trim().startsWith("//"))
-        .join("\n");
+      document.getElementById("inputText").value = "";
+      document.getElementById("outputText").value = "";
     }
 
-    document.getElementById("outputText").value = result;
-    addToHistory(input, result, option);
-  }
+    function processText(option) {
+      const input = document.getElementById("inputText").value;
+      let result;
 
-  function copyToClipboard() {
-    const output = document.getElementById("outputText").value;
-    navigator.clipboard.writeText(output).then(() => {
-      alert("הטקסט הועתק ללוח!");
-    });
-  }
+      if (option === "spaces") {
+        result = input.split("\n").filter(line => line.trim() !== "").join("\n");
+      } else if (option === "comments") {
+        result = input.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
+      } else {
+        result = input
+          .split("\n")
+          .filter(line => line.trim() !== "" && !line.trim().startsWith("//"))
+          .join("\n");
+      }
 
-  function loadHistory() {
-    const historyList = document.getElementById("historyList");
-    const history = JSON.parse(localStorage.getItem("textHistory")) || [];
-    historyList.innerHTML = "";
-    history.forEach(({ input, result, option, timestamp }, index) => {
-      const li = document.createElement("li");
-      li.className = "history-item";
+      document.getElementById("outputText").value = result;
+      addToHistory(input, result, option);
+    }
 
-      // טקסט מקוצר ל-5 שורות
-      const lines = input.split("\n");
-      const shortText = lines.slice(0, 5).join("\n");
-      const isTruncated = lines.length > 5;
-
-      li.innerHTML = `
-        <div class="history-text">${isTruncated ? shortText : input}</div>
-        <button class="show-more-button" onclick="toggleFullText(${index})" style="display: ${
-        isTruncated ? "block" : "none"
-      };">הצג עוד</button>
-        <div class="history-timestamp">${timestamp}</div>
-      `;
-
-      li.setAttribute("data-full-input", input);
-      li.setAttribute("data-full-result", result);
-      li.setAttribute("data-option", option);
-      li.setAttribute("data-index", index);
-
-      li.addEventListener("click", (event) => {
-        if (!event.target.classList.contains("show-more-button")) {
-          document.getElementById("inputText").value = input;
-          document.getElementById("outputText").value = result;
-        }
+    function copyToClipboard() {
+      const output = document.getElementById("outputText").value;
+      navigator.clipboard.writeText(output).then(() => {
+        alert("הטקסט הועתק ללוח!");
       });
-
-      historyList.appendChild(li);
-    });
-  }
-
-  function toggleFullText(index) {
-    const historyList = document.getElementById("historyList");
-    const li = historyList.querySelector(`.history-item[data-index="${index}"]`);
-    const fullInput = li.getAttribute("data-full-input");
-    const textDiv = li.querySelector(".history-text");
-    const button = li.querySelector(".show-more-button");
-
-    if (button.innerText === "הצג עוד") {
-      textDiv.innerText = fullInput;
-      button.innerText = "הצג פחות";
-    } else {
-      const lines = fullInput.split("\n");
-      const shortText = lines.slice(0, 5).join("\n");
-      textDiv.innerText = shortText;
-      button.innerText = "הצג עוד";
     }
-  }
 
-  function addToHistory(input, result, option) {
-    const timestamp = new Date().toLocaleString();
-    const history = JSON.parse(localStorage.getItem("textHistory")) || [];
-    history.push({ input, result, option, timestamp });
-    localStorage.setItem("textHistory", JSON.stringify(history));
+    function loadHistory() {
+      const historyList = document.getElementById("historyList");
+      const history = JSON.parse(localStorage.getItem("textHistory")) || [];
+      historyList.innerHTML = "";
+      history.forEach(({ input, result, option, timestamp }, index) => {
+        const li = document.createElement("li");
+        li.className = "history-item";
+
+        // טקסט מקוצר ל-5 שורות
+        const lines = input.split("\n");
+        const shortText = lines.slice(0, 5).join("\n");
+        const isTruncated = lines.length > 5;
+
+        li.innerHTML = `
+          <div class="history-text">${isTruncated ? shortText : input}</div>
+          <button class="show-more-button" onclick="toggleFullText(${index})" style="display: ${
+          isTruncated ? "block" : "none"
+        };">הצג עוד</button>
+          <div class="history-timestamp">${timestamp}</div>
+        `;
+
+        li.setAttribute("data-full-input", input);
+        li.setAttribute("data-full-result", result);
+        li.setAttribute("data-option", option);
+        li.setAttribute("data-index", index);
+
+        li.addEventListener("click", (event) => {
+          if (!event.target.classList.contains("show-more-button")) {
+            document.getElementById("inputText").value = input;
+            document.getElementById("outputText").value = result;
+          }
+        });
+
+        historyList.appendChild(li);
+      });
+    }
+
+    function toggleFullText(index) {
+      const historyList = document.getElementById("historyList");
+      const li = historyList.querySelector(`.history-item[data-index="${index}"]`);
+      const fullInput = li.getAttribute("data-full-input");
+      const textDiv = li.querySelector(".history-text");
+      const button = li.querySelector(".show-more-button");
+
+      if (button.innerText === "הצג עוד") {
+        textDiv.innerText = fullInput;
+        button.innerText = "הצג פחות";
+      } else {
+        const lines = fullInput.split("\n");
+        const shortText = lines.slice(0, 5).join("\n");
+        textDiv.innerText = shortText;
+        button.innerText = "הצג עוד";
+      }
+    }
+
+    function addToHistory(input, result, option) {
+      const timestamp = new Date().toLocaleString();
+      const history = JSON.parse(localStorage.getItem("textHistory")) || [];
+      history.push({ input, result, option, timestamp });
+      localStorage.setItem("textHistory", JSON.stringify(history));
+      loadHistory();
+    }
+
+    // הצגת תפריט היסטוריה
+    function toggleHistory() {
+      const sidebar = document.getElementById("historySidebar");
+      sidebar.classList.toggle("open");
+      loadHistory(); // טען את ההיסטוריה כאשר התפריט נפתח
+    }
+
+    // אתחול ההיסטוריה בעת טעינת הדף
     loadHistory();
-  }
-
-  // הצגת תפריט היסטוריה
-  function toggleHistory() {
-    const sidebar = document.getElementById("historySidebar");
-    sidebar.classList.toggle("open");
-  }
-
-  // אתחול ההיסטוריה בעת טעינת הדף
-  loadHistory();
   </script>
 </body>
 </html>
