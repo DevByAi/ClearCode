@@ -160,8 +160,9 @@
       <textarea id="inputText" placeholder="הדבק כאן את הטקסט שלך..."></textarea>
       <textarea id="outputText" readonly placeholder="כאן תופיע התוצאה..."></textarea>
     </div>
-    <button class="btn-history" onclick="toggleHistory()">היסטוריה - History</button>
+    
     <div class="button-container">
+      <button class="btn-history" onclick="toggleHistory()">היסטוריה - History</button>
       <button class="btn-clear" onclick="clearText()">נקה תיבות - Clear Boxes</button>
       <button class="btn-process" onclick="processText('all')">הסר רווחים והערות - Remove Both</button>
       <button class="btn-process" onclick="processText('spaces')">הסר רווחים בלבד - Remove Spaces Only</button>
@@ -169,13 +170,13 @@
       <button class="btn-copy" onclick="copyToClipboard()">העתק ללוח - Copy to Clipboard</button>
     </div>
   </main>
-  <aside id="historySidebar">
+  <aside id="historySidebar"></aside>
     <header>
-      <h2>היסטוריה - History</h2>
+        <h2>היסטוריה - History</h2>
+        <button Cal ss="close-button" onclick="toggleHistory()" style="float: right;">✖</button> <!-- כפתור סגירה -->
     </header>
     <ul id="historyList" class="history-list"></ul>
-  </aside>
-
+</aside>
   <script>
     function clearText() {
     document.getElementById("inputText").value = "";
