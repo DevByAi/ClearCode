@@ -120,6 +120,20 @@
     .history-item:hover {
       background-color: #f9f9f9;
     }
+    .btn-history {
+    background-color: #ffc107; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    border: none; /* ללא גבול */
+    border-radius: 4px; /* פינות מעוגלות */
+    padding: 10px; /* רווח פנימי */
+    font-size: 16px; /* גודל טקסט */
+    cursor: pointer; /* יד על העכבר */
+    transition: background-color 0.3s ease; /* אנימציה */
+}
+
+.btn-history:hover {
+    background-color: #e0a800; /* צבע רקע כאשר העכבר מעל */
+}
 
     .show-more-button {
       background-color: #007bff;
@@ -146,6 +160,7 @@
       <textarea id="inputText" placeholder="הדבק כאן את הטקסט שלך..."></textarea>
       <textarea id="outputText" readonly placeholder="כאן תופיע התוצאה..."></textarea>
     </div>
+    <button class="btn-history" onclick="toggleHistory()">היסטוריה - History</button>
     <div class="button-container">
       <button class="btn-clear" onclick="clearText()">נקה תיבות - Clear Boxes</button>
       <button class="btn-process" onclick="processText('all')">הסר רווחים והערות - Remove Both</button>
