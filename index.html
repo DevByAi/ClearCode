@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מסנן שורות ריקות והערות</title>
+  <title>מסנן שורות ריקות והערות - Line Filter</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,240 +12,258 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
       background-color: #f4f4f9;
+      color: #333;
     }
 
-    .container {
-      max-width: 800px;
-      width: 90%;
+    header {
+      background-color: #6200ea;
+      color: white;
+      width: 100%;
+      padding: 10px 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    main {
       padding: 20px;
-      background-color: #ffffff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      position: relative;
+      width: 100%;
+      max-width: 1200px;
     }
 
-    h1 {
-      font-size: 24px;
-      text-align: center;
-    }
-
-    p {
-      text-align: center;
-      font-size: 16px;
+    .text-area-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
     textarea {
       width: 100%;
       height: 150px;
-      margin: 10px 0;
       padding: 10px;
-      border-radius: 4px;
+      font-size: 14px;
       border: 1px solid #ccc;
+      border-radius: 4px;
       resize: none;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
-    .button-group {
+    .button-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .button-group button {
+    button {
       padding: 10px;
       font-size: 16px;
-      direction: rtl;
-      text-align: center;
-      color: #ffffff;
-      background-color: #007bff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .button-group button:hover {
-      background-color: #0056b3;
+    button:hover {
+      opacity: 0.9;
     }
 
-    /* עיצוב לחלון הצד */
-    .history-sidebar {
+    .btn-clear { background-color: #ff5252; color: white; }
+    .btn-process { background-color: #4caf50; color: white; }
+    .btn-copy { background-color: #2196f3; color: white; }
+
+    aside {
       position: fixed;
       top: 0;
-      bottom: 0;
+      right: 0;
+      height: 100%;
       width: 300px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      background-color: white;
+      border-left: 1px solid #ddd;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
+      display: none;
       transition: transform 0.3s ease-in-out;
-      z-index: 1000;
     }
 
-    .history-sidebar[dir="ltr"] {
-      right: -300px;
+    aside.open {
+      display: block;
       transform: translateX(0);
     }
 
-    .history-sidebar[dir="rtl"] {
-      left: -300px;
-      transform: translateX(0);
-    }
-
-    .history-sidebar.open[dir="ltr"] {
-      transform: translateX(-300px);
-    }
-
-    .history-sidebar.open[dir="rtl"] {
-      transform: translateX(300px);
-    }
-
-    .history-sidebar .close-button {
+    aside header {
       padding: 10px;
-      background-color: #ff6b6b;
+      background-color: #6200ea;
       color: white;
-      border: none;
-      border-radius: 4px;
-      margin: 10px;
-      cursor: pointer;
-    }
-
-    .history-sidebar .close-button:hover {
-      background-color: #e63946;
-    }
-
-    .history-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 10px;
+      text-align: center;
     }
 
     .history-list {
       list-style: none;
-      padding: 0 10px;
+      padding: 0;
+      margin: 0;
     }
 
     .history-item {
       padding: 10px;
       border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-size: 14px;
     }
 
-    .history-item:last-child {
-      border-bottom: none;
+    .history-item:hover {
+      background-color: #f9f9f9;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 20px;
-      }
+    .show-more-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      margin-top: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-      p {
-        font-size: 14px;
-      }
-
-      .button-group button {
-        font-size: 14px;
-        padding: 8px;
-      }
-
-      .history-sidebar {
-        width: 100%;
-      }
+    .show-more-button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>מסנן שורות ריקות והערות</h1>
-    <p>הדבק כאן את הטקסט שלך, ונקה שורות ריקות והערות לפי בחירתך.</p>
-    <p>
-      Paste your text below, and this tool will help you clean it by removing 
-      empty lines and comments. The result will appear in the output box.
-    </p>
-    
-    <!-- תיבת הטקסט הראשונה -->
-    <textarea id="inputText" placeholder="הדבק כאן את הטקסט..."></textarea>
-
-    <!-- תיבת הטקסט השנייה -->
-    <textarea id="outputText" placeholder="The processed text will appear here..." readonly></textarea>
-    
-    <!-- כפתורים -->
-    <div class="button-group">
-      <button onclick="processText('removeComments')">הסר הערות - Remove Comments</button>
-      <button onclick="processText('removeEmptyLines')">הסר רווחים ריקים - Remove Empty Lines</button>
-      <button onclick="processText('removeAll')">הסר הכל - Remove All</button>
-      <button onclick="clearText()">נקה תיבות - Clear Boxes</button>
-      <button onclick="copyToClipboard()">העתק ללוח - Copy to Clipboard</button>
-      <button onclick="toggleHistory()">הצג היסטוריה - Toggle History</button>
+  <header>
+    <h1>מסנן שורות ריקות והערות - Line Filter</h1>
+  </header>
+  <main>
+    <div class="text-area-container">
+      <textarea id="inputText" placeholder="הדבק כאן את הטקסט שלך..."></textarea>
+      <textarea id="outputText" readonly placeholder="כאן תופיע התוצאה..."></textarea>
     </div>
-  </div>
-
-  <!-- חלון הצד של ההיסטוריה -->
-  <div class="history-sidebar" id="historySidebar" dir="rtl">
-    <button class="close-button" onclick="toggleHistory()">סגור - Close</button>
-    <div class="history-title">היסטוריה:</div>
-    <ul class="history-list" id="historyList"></ul>
-  </div>
+    <div class="button-container">
+      <button class="btn-clear" onclick="clearText()">נקה תיבות - Clear Boxes</button>
+      <button class="btn-process" onclick="processText('all')">הסר רווחים והערות - Remove Both</button>
+      <button class="btn-process" onclick="processText('spaces')">הסר רווחים בלבד - Remove Spaces Only</button>
+      <button class="btn-process" onclick="processText('comments')">הסר הערות בלבד - Remove Comments Only</button>
+      <button class="btn-copy" onclick="copyToClipboard()">העתק ללוח - Copy to Clipboard</button>
+    </div>
+  </main>
+  <aside id="historySidebar">
+    <header>
+      <h2>היסטוריה - History</h2>
+    </header>
+    <ul id="historyList" class="history-list"></ul>
+  </aside>
 
   <script>
-    let lastInputText = '';
-    
-    // טען היסטוריה מ-localStorage
-    function loadHistory() {
-      const historyList = document.getElementById('historyList');
-      const history = JSON.parse(localStorage.getItem('textHistory')) || [];
-      historyList.innerHTML = '';
-      history.forEach((item) => {
-        const li = document.createElement('li');
-        li.className = 'history-item';
-        li.textContent = item;
-        historyList.appendChild(li);
-      });
-    }
-
-    // הוספת טקסט להיסטוריה
-    function addToHistory(text) {
-      const history = JSON.parse(localStorage.getItem('textHistory')) || [];
-      history.push(text);
-      localStorage.setItem('textHistory', JSON.stringify(history));
-      loadHistory();
-    }
-
-    // הצגת ההיסטוריה/סגירתה
-    function toggleHistory() {
-      const historySidebar = document.getElementById('historySidebar');
-      historySidebar.classList.toggle('open');
-    }
-
-    // פונקציות נוספות (זהות לגרסה הקודמת)
     function clearText() {
-      document.getElementById('inputText').value = '';
-      document.getElementById('outputText').value = '';
+    document.getElementById("inputText").value = "";
+    document.getElementById("outputText").value = "";
+  }
+
+  function processText(option) {
+    const input = document.getElementById("inputText").value;
+    let result;
+
+    if (option === "spaces") {
+      result = input.split("\n").filter(line => line.trim() !== "").join("\n");
+    } else if (option === "comments") {
+      result = input.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
+    } else {
+      result = input
+        .split("\n")
+        .filter(line => line.trim() !== "" && !line.trim().startsWith("//"))
+        .join("\n");
     }
 
-    function processText(action) {
-      const input = document.getElementById('inputText').value;
-      let output = input;
+    document.getElementById("outputText").value = result;
+    addToHistory(input, result, option);
+  }
 
-      if (action === 'removeComments') {
-        output = output.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
-      } else if (action === 'removeEmptyLines') {
-        output = output.replace(/^\s*[\r\n]/gm, '');
-      } else if (action === 'removeAll') {
-        output = output.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').replace(/^\s*[\r\n]/gm, '');
-      }
+  function copyToClipboard() {
+    const output = document.getElementById("outputText").value;
+    navigator.clipboard.writeText(output).then(() => {
+      alert("הטקסט הועתק ללוח!");
+    });
+  }
 
-      document.getElementById('outputText').value = output;
-      addToHistory(input);
+  function loadHistory() {
+    const historyList = document.getElementById("historyList");
+    const history = JSON.parse(localStorage.getItem("textHistory")) || [];
+    historyList.innerHTML = "";
+    history.forEach(({ input, result, option, timestamp }, index) => {
+      const li = document.createElement("li");
+      li.className = "history-item";
+
+      // טקסט מקוצר ל-5 שורות
+      const lines = input.split("\n");
+      const shortText = lines.slice(0, 5).join("\n");
+      const isTruncated = lines.length > 5;
+
+      li.innerHTML = `
+        <div class="history-text">${isTruncated ? shortText : input}</div>
+        <button class="show-more-button" onclick="toggleFullText(${index})" style="display: ${
+        isTruncated ? "block" : "none"
+      };">הצג עוד</button>
+        <div class="history-timestamp">${timestamp}</div>
+      `;
+
+      li.setAttribute("data-full-input", input);
+      li.setAttribute("data-full-result", result);
+      li.setAttribute("data-option", option);
+      li.setAttribute("data-index", index);
+
+      li.addEventListener("click", (event) => {
+        if (!event.target.classList.contains("show-more-button")) {
+          document.getElementById("inputText").value = input;
+          document.getElementById("outputText").value = result;
+        }
+      });
+
+      historyList.appendChild(li);
+    });
+  }
+
+  function toggleFullText(index) {
+    const historyList = document.getElementById("historyList");
+    const li = historyList.querySelector(`.history-item[data-index="${index}"]`);
+    const fullInput = li.getAttribute("data-full-input");
+    const textDiv = li.querySelector(".history-text");
+    const button = li.querySelector(".show-more-button");
+
+    if (button.innerText === "הצג עוד") {
+      textDiv.innerText = fullInput;
+      button.innerText = "הצג פחות";
+    } else {
+      const lines = fullInput.split("\n");
+      const shortText = lines.slice(0, 5).join("\n");
+      textDiv.innerText = shortText;
+      button.innerText = "הצג עוד";
     }
+  }
 
-    function copyToClipboard() {
-      const output = document.getElementById('outputText').value;
-      navigator.clipboard.writeText(output).then(() => alert('הטקסט הועתק ללוח!'));
-    }
-
-    // טען את ההיסטוריה בתחילת טעינת הדף
+  function addToHistory(input, result, option) {
+    const timestamp = new Date().toLocaleString();
+    const history = JSON.parse(localStorage.getItem("textHistory")) || [];
+    history.push({ input, result, option, timestamp });
+    localStorage.setItem("textHistory", JSON.stringify(history));
     loadHistory();
+  }
+
+  // הצגת תפריט היסטוריה
+  function toggleHistory() {
+    const sidebar = document.getElementById("historySidebar");
+    sidebar.classList.toggle("open");
+  }
+
+  // אתחול ההיסטוריה בעת טעינת הדף
+  loadHistory();
   </script>
 </body>
 </html>
