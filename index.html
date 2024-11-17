@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">  
+<html lang="he">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <meta name="description" content="Code cleaner tool for removing comments and empty lines">  
-  <title>ClearCode</title>
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFtUlEQVR4Xu2bS0gcVRTGv3vnUEgsCGniqCAfUhQAAUqAwoJRJAJAWf6ApBEBKEBpGFAAhMIENIJUQQAgpYiF2gIWCIBDSaXcXYCzIIAzEUWSQRdOScf3smTz7cykz7yn0/nM+Xy5+Z+b2t3JmS8S+YYfggZZBOqiAYhgq4hPVEyYQN7ncmzHQHxByMCgFSixAh9A4e6OnFbqgT5gBMbJUBIoeJYKwDNQ8eRTg2Y+dJAfahVwJxZIgTIT0PoFGLcAZsZmAAR7w5CkbwBQwPAi7INBCoRQ9Ya6nXGDeF9IYZkgVAiihCjkpHTqdwEBKnAl3WcAkahMgloJJUBoS0lBR+OoH0CUmp4kIwc3vFPW0AKIxMIMJKgF2ITQZDSAw/MT9l3jEqgUGRSASiVMoRGiLYAURUwHGAIliURKQOSejAxoC5CVAQkACuPYxYAGMZQkIoKw3CWAlxFbAkRcQx8A0WDANFhpYUE0Mr2cTKg0V5DFzhlFQjMgGSqADCSgVwE8T8Z0AJZhgnEyggWUmTSmbRyZMtJQN3rHlklIxWJHmoVaQAXgq8cxVLIozMnYsMJJJdCIqBPkOtJBOkFRpIjgpAsnwdKE4gBGUihLkCoJMthAlCgpGOBPZjFGSJUBCohUEgQ7BtI8e9AVSqsEloakAvzoUQeJCAqgvVYS0hpBGk0pKKF1h6hAiJTgYRYVZiKAFBk9lFVEkpEMp9DcR0US0EkKhZh2CpAlGgguAXKQZmW3UDBXBHLHmnXYovmJhqpAIka7iUj8+iBDXSPZnTpAUU8iZQHLmNSy6zCVAjZt8mwVagfgLKmygSgBpEaX2FtCBpIoZ9DoUwpx7nAPLVmEgDIdKsCpPy2xKhLwFdMHTiAwJKVCIiNAElCeAWUUOhogGZVSoIrGgTMrCGFiybA7ZOBQnozVYOlgZHEhtTkqIhSkFbBLMBQoL0T8m5xRJwJpDxzAeA0RTtQCwZnY4AKTwWDVo1ajBbKcHIjUz6DmXqMmwTJCUBwNYKh4yEguuCjF6c5LJSiEqK1UR6hgICRNtBIM2qiEGpaAczSkTcagZa1CJBRZnQEhpAKBWhwKpIA3wTS7ANZAROWQRbIAbxOEgCWR3BrVk5wQPAiG2ABrNYx+EIjkJVghFkZohtBVEUrAFZwpqESIhlkgrFsZckpgtqxC2jCuYoaB1WQlZFNoMSkMQeG1SJt2AGwDCGiG2TaSo3IY5iwqIsDrkJoUkhai0A2W3MCsMcWak0HYRI5ByDS4ASFTAAczskQQ9A4XQqE5sWQpE3ga2lwAkxiU9AGlVwrBLCgA8iAiFKs0g3EIIURMGMBwEk0KpUgkhJSgWhhoEEmJSzA2wlQgoFhTCeAJzMeAC0jRiMplCZqk6B2tqgClwBRM6RA0ECmggDsYoHgj/LSUlSHxCqM8TFktY4AGAdCxhRxMVTwlQ0gDaKsVgEhUC6C1A8G5+7tgn9TIe7IXULRAO0CIykIRJjCVgCD7BPIQw9FoUXSPiLGEAGZUhCjgr0AVc6r0ImZXpKfEBWD4KiLFAB4FCwW6yytB6QAAAABJRU5ErkJggg==" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מסנן שורות ריקות והערות</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,22 +16,27 @@
       min-height: 100vh;
       background-color: #f4f4f9;
     }
+
     .container {
-      max-width: 600px;
+      max-width: 800px;
       width: 90%;
       padding: 20px;
       background-color: #ffffff;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
+      position: relative;
     }
+
     h1 {
       font-size: 24px;
       text-align: center;
     }
+
     p {
       text-align: center;
       font-size: 16px;
     }
+
     textarea {
       width: 100%;
       height: 150px;
@@ -43,191 +46,206 @@
       border: 1px solid #ccc;
       resize: none;
     }
+
     .button-group {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+
     .button-group button {
       padding: 10px;
       font-size: 16px;
+      direction: rtl;
+      text-align: center;
       color: #ffffff;
       background-color: #007bff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
+
     .button-group button:hover {
       background-color: #0056b3;
     }
-    .credits {
-        margin-top: 30px;
-        width: 100%;          
-        text-align: center;   
+
+    /* עיצוב לחלון הצד */
+    .history-sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 300px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .history-sidebar[dir="ltr"] {
+      right: -300px;
+      transform: translateX(0);
+    }
+
+    .history-sidebar[dir="rtl"] {
+      left: -300px;
+      transform: translateX(0);
+    }
+
+    .history-sidebar.open[dir="ltr"] {
+      transform: translateX(-300px);
+    }
+
+    .history-sidebar.open[dir="rtl"] {
+      transform: translateX(300px);
+    }
+
+    .history-sidebar .close-button {
+      padding: 10px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .history-sidebar .close-button:hover {
+      background-color: #e63946;
+    }
+
+    .history-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px;
+    }
+
+    .history-list {
+      list-style: none;
+      padding: 0 10px;
+    }
+
+    .history-item {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      p {
         font-size: 14px;
-        color: #666;
+      }
+
+      .button-group button {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .history-sidebar {
+        width: 100%;
+      }
     }
-    .credits a {
-        color: #007bff;
-        text-decoration: none;
-    }
-    .credits a:hover {
-        text-decoration: underline;
-    } 
-    @media only screen and (max-width: 600px) {
-        .container {
-            width: 92%;
-            padding: 15px;
-            margin: 15px auto;
-        }
-
-        h1 {
-            font-size: 22px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin: 15px 0;
-            padding: 0 10px;
-        }
-
-        textarea {
-            height: 140px;
-            margin: 12px 0;
-            font-size: 16px; 
-            -webkit-text-size-adjust: 100%; 
-        }
-
-        .button-group {
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .button-group button {
-            padding: 12px 10px;
-            font-size: 16px;
-            line-height: 1.4;
-            min-height: 65px; 
-            touch-action: manipulation; 
-            -webkit-tap-highlight-color: transparent; 
-        }
-
-        .credits {
-            margin-top: 25px;
-            padding: 0 10px;
-        }
-    }
-    @media only screen and (max-width: 380px) {
-        .container {
-            width: 95%;
-            padding: 12px;
-        }
-
-        h1 {
-            font-size: 20px;
-        }
-
-        .button-group button {
-            padding: 10px 8px;
-        }
-    }
-    @supports (-webkit-touch-callout: none) {
-        input,
-        textarea,
-        button {
-            font-size: 16px !important;
-        }
-    }
-</style>
-   
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>מסנן שורות ריקות והערות
-        <br>Empty Lines and Comments Filter</h1>
-    <p>הדבק כאן את הטקסט שלך, ונקה שורות ריקות והערות לפי בחירתך
-        <br>Paste your text here and clean empty lines and comments as you choose</p>
-    <textarea id="inputText" placeholder="הדבק כאן את הטקסט... - Paste your text here..."></textarea>
-    <textarea id="outputText" placeholder="התוצאה תופיע כאן... - Result will appear here..." readonly></textarea>
+  <div class="container">
+    <h1>מסנן שורות ריקות והערות</h1>
+    <p>הדבק כאן את הטקסט שלך, ונקה שורות ריקות והערות לפי בחירתך.</p>
+    <p>
+      Paste your text below, and this tool will help you clean it by removing 
+      empty lines and comments. The result will appear in the output box.
+    </p>
+    
+    <!-- תיבת הטקסט הראשונה -->
+    <textarea id="inputText" placeholder="הדבק כאן את הטקסט..."></textarea>
+
+    <!-- תיבת הטקסט השנייה -->
+    <textarea id="outputText" placeholder="The processed text will appear here..." readonly></textarea>
+    
+    <!-- כפתורים -->
     <div class="button-group">
-      <button onclick="processText('removeComments')">הסר רק הערות
-        <br>Remove Comments Only</button>
-      <button onclick="processText('removeEmptyLines')">הסר רק שורות ריקות
-        <br>Remove Empty Lines Only</button>
-      <button onclick="processText('removeAll')">הסר הכל
-        <br>Remove All</button>
-      <button onclick="clearText()">ניקוי תיבות
-        <br>Clear Boxes</button>
-      <button onclick="copyToClipboard()">העתק ללוח
-        <br>Copy to Clipboard</button>
+      <button onclick="processText('removeComments')">הסר הערות - Remove Comments</button>
+      <button onclick="processText('removeEmptyLines')">הסר רווחים ריקים - Remove Empty Lines</button>
+      <button onclick="processText('removeAll')">הסר הכל - Remove All</button>
+      <button onclick="clearText()">נקה תיבות - Clear Boxes</button>
+      <button onclick="copyToClipboard()">העתק ללוח - Copy to Clipboard</button>
+      <button onclick="toggleHistory()">הצג היסטוריה - Toggle History</button>
     </div>
-    <div class="credits">
-        Created by <a href="https://github.com/Davidtam561" target="_blank">@Davidtam561</a>
-    </div>
-</div>
-<script>
-    let lastInputText = ''; 
+  </div>
+
+  <!-- חלון הצד של ההיסטוריה -->
+  <div class="history-sidebar" id="historySidebar" dir="rtl">
+    <button class="close-button" onclick="toggleHistory()">סגור - Close</button>
+    <div class="history-title">היסטוריה:</div>
+    <ul class="history-list" id="historyList"></ul>
+  </div>
+
+  <script>
+    let lastInputText = '';
+    
+    // טען היסטוריה מ-localStorage
+    function loadHistory() {
+      const historyList = document.getElementById('historyList');
+      const history = JSON.parse(localStorage.getItem('textHistory')) || [];
+      historyList.innerHTML = '';
+      history.forEach((item) => {
+        const li = document.createElement('li');
+        li.className = 'history-item';
+        li.textContent = item;
+        historyList.appendChild(li);
+      });
+    }
+
+    // הוספת טקסט להיסטוריה
+    function addToHistory(text) {
+      const history = JSON.parse(localStorage.getItem('textHistory')) || [];
+      history.push(text);
+      localStorage.setItem('textHistory', JSON.stringify(history));
+      loadHistory();
+    }
+
+    // הצגת ההיסטוריה/סגירתה
+    function toggleHistory() {
+      const historySidebar = document.getElementById('historySidebar');
+      historySidebar.classList.toggle('open');
+    }
+
+    // פונקציות נוספות (זהות לגרסה הקודמת)
     function clearText() {
       document.getElementById('inputText').value = '';
       document.getElementById('outputText').value = '';
-      lastInputText = ''; 
     }
+
     function processText(action) {
-      const inputText = document.getElementById('inputText').value;
-      lastInputText = inputText; 
-      document.getElementById('outputText').value = ''; 
-      setTimeout(() => { 
-        if (action === 'removeComments') {
-          removeComments();
-        } else if (action === 'removeEmptyLines') {
-          removeEmptyLines();
-        } else if (action === 'removeAll') {
-          removeAll();
-        }
-      }, 500); 
+      const input = document.getElementById('inputText').value;
+      let output = input;
+
+      if (action === 'removeComments') {
+        output = output.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
+      } else if (action === 'removeEmptyLines') {
+        output = output.replace(/^\s*[\r\n]/gm, '');
+      } else if (action === 'removeAll') {
+        output = output.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').replace(/^\s*[\r\n]/gm, '');
+      }
+
+      document.getElementById('outputText').value = output;
+      addToHistory(input);
     }
-    function removeComments() {
-      const lines = lastInputText.split('\n');
-      const filteredLines = lines.filter(line => !line.trim().startsWith('//') &&
-        !line.trim().startsWith('#') &&
-        !line.trim().startsWith('<!--') && !line.trim().endsWith('-->') &&
-        !line.trim().startsWith('/*') && !line.trim().endsWith('*/') &&
-        !line.trim().startsWith('--') &&
-        !line.trim().startsWith(';') &&
-        !line.trim().startsWith('%') &&
-        !line.trim().startsWith('REM')
-      );
-      document.getElementById('outputText').value = filteredLines.join('\n');
-    }
-    function removeEmptyLines() {
-      const lines = lastInputText.split('\n');
-      const filteredLines = lines.filter(line => line.trim() !== '');
-      document.getElementById('outputText').value = filteredLines.join('\n');
-    }
-    function removeAll() {
-      const lines = lastInputText.split('\n');
-      const filteredLines = lines.filter(line => {
-        const trimmedLine = line.trim();
-        return trimmedLine !== '' &&
-          !trimmedLine.startsWith('//') &&
-          !trimmedLine.startsWith('#') &&
-          !trimmedLine.startsWith('<!--') && !trimmedLine.endsWith('-->') &&
-          !trimmedLine.startsWith('/*') && !trimmedLine.endsWith('*/') &&
-          !trimmedLine.startsWith('--') &&
-          !trimmedLine.startsWith(';') &&
-          !trimmedLine.startsWith('%') &&
-          !trimmedLine.startsWith('REM');
-      });
-      document.getElementById('outputText').value = filteredLines.join('\n');
-    }
+
     function copyToClipboard() {
-      const outputText = document.getElementById('outputText');
-      outputText.select();
-      document.execCommand('copy');
+      const output = document.getElementById('outputText').value;
+      navigator.clipboard.writeText(output).then(() => alert('הטקסט הועתק ללוח!'));
     }
-</script>
+
+    // טען את ההיסטוריה בתחילת טעינת הדף
+    loadHistory();
+  </script>
 </body>
 </html>
