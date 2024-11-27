@@ -67,7 +67,7 @@ No installation required! Simply visit the website and start using the tool.
 Feel free to submit issues and enhancement requests!
 
 ## License
-This project is free to use. You are welcome to modify and distribute it, just make sure to give credit to the original author [@Davidtam561](https://github.com/Davidtam561).
+This project is free to use. You are welcome to modify and distribute it, just make sure to give credit to the original author [@DevByAi](https://github.com/DevByAi).
 
 ## Link
-[Visit ClearCode](https://davidtam561.github.io/ClearCode/)
+[Visit ClearCode](https://DevByAi.github.io/ClearCode/)
