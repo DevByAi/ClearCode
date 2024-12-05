@@ -67,6 +67,6 @@ No installation required! Simply visit the website and start using the tool.
 
 This project is part of a collection of websites built entirely using AI.  
 You can explore all the websites I have built here:  
-[https://linktr.ee/dev_by_ai](https://linktr.ee/dev_by_ai)
+[dev_by_ai](https://linktr.ee/dev_by_ai)
 
-Feel free to use or modify the project as needed, but please give credit to the original developer. 🚀
+Feel free to use or modify the project as needed, but please give credit to the original developer.
