@@ -63,11 +63,10 @@ No installation required! Simply visit the website and start using the tool.
 4. Use the copy button to copy the result to your clipboard
 5. Access the history feature to view and reuse previous code snippets
 
-## Contributing
-Feel free to submit issues and enhancement requests!
+## Credits
 
-## License
-This project is free to use. You are welcome to modify and distribute it, just make sure to give credit to the original author [@DevByAi](https://github.com/DevByAi).
+This project is part of a collection of websites built entirely using AI.  
+You can explore all the websites I have built here:  
+[https://linktr.ee/dev_by_ai](https://linktr.ee/dev_by_ai)
 
-## Link
-[Visit ClearCode](https://DevByAi.github.io/ClearCode/)
+Feel free to use or modify the project as needed, but please give credit to the original developer. 🚀
